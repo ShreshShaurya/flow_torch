@@ -8,3 +8,4 @@ dependencies:
   - pip
   - pip:
     - mlflow==2.3.2
+    - dvc==2.58.1

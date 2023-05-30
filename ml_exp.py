@@ -18,11 +18,11 @@ logging.basicConfig(level=logging.WARN)
 logger = logging.getLogger(__name__)
 
 #help(mlflow)
-experiment_name = 'ml_flow_exp'
-# try:
-#     exp_id = mlflow.create_experiment(name = experiment_name)
-# except:
-#     exp_id = mlflow.get_experiment_by_name(experiment_name).experiment_id
+experiment_name = 'ml_flow_exp1'
+try:
+    exp_id = mlflow.create_experiment(name = experiment_name)
+except:
+    exp_id = mlflow.get_experiment_by_name(experiment_name).experiment_id
 
 
 
@@ -60,7 +60,8 @@ if __name__ == "__main__":
     alpha = float(sys.argv[1]) if len(sys.argv) > 1 else 0.5
     l1_ratio = float(sys.argv[2]) if len(sys.argv) > 2 else 0.5
 
-    with mlflow.start_run(run_name = 'run1'):
+    with mlflow.start_run(experiment_id=exp_id, run_name='First_Model'):
+ 
         lr = ElasticNet(alpha=alpha, l1_ratio=l1_ratio, random_state=42)
         lr.fit(train_x, train_y)
 
@@ -90,7 +91,7 @@ if __name__ == "__main__":
             # There are other ways to use the Model Registry, which depends on the use case,
             # please refer to the doc for more information:
             # https://mlflow.org/docs/latest/model-registry.html#api-workflow
-            mlflow.sklearn.log_model(lr, "model", registered_model_name="ElasticnetWineModel")
+            mlflow.sklearn.log_model(lr, "model", registered_model_name="ElasticnetWineModel1")
         else:
             mlflow.sklearn.log_model(lr, "model")
         
